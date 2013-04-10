@@ -1,18 +1,19 @@
 Enhancement Search_Capability(definition LEQ(x,y: Entry): B)
-            for Static_Array_Template;    
-	uses Std_Boolean_Fac;
+			for Static_Array_Template;
+		uses Std_Boolean_Fac, Total_Preordering_Theory,
+			Binary_Relation_Properties_Theory, 
+			Binary_Iterator_Theory;
+		requires Is_Total_Preordering(LEQ) and Is_Symmetric(LEQ);
 
---	uses Ordering_Relations_Theory;
---      requires Is_Total_Preordering(LEQ) and Is_Symmetric(LEQ);
-
-    Definition Is_Ordered(A: Static_Array, From: Z, To: Z): B = 
-		(For all i: Z, if (From <= i and i < To) then LEQ(A(i), A(i+1)));
-
-    Definition Exists_Between(E: Entry, A: Static_Array, From: Z, To: Z): B = 
-		(There exists i: Z such that (From  <= i and i <= To) and A(i) = E);
-
-    Operation Is_Present(restores key: Entry; restores A: Static_Array): Boolean;
-      requires Is_Ordered(A, Lower_Bound, Upper_Bound);
-      ensures Is_Present = Exists_Between(key, A, Lower_Bound, Upper_Bound);
-end Search_Capability;
+	Operation Is_Present(restores key: Entry; 
+			restores A: Static_Array) : Boolean;
+		requires Is_Conformal_With(LEQ, Concatenate(
+			Shift(A, (Lower_Bound - 1) * -1), Upper_Bound - 
+				Lower_Bound));
+		ensures Is_Present = 
+			Exists_Between(key, Concatenate(
+					Shift(A, (Lower_Bound - 1) * -1), 
+					Upper_Bound - Lower_Bound), 
+				Lower_Bound, Upper_Bound);
+end;
 

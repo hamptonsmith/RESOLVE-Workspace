@@ -1,12 +1,16 @@
 Precis Binary_Iterator_Theory;
 		uses Integer_Theory, String_Theory, Conditional_Function_Theory;
 
-	Definition Iterative_Apply(Start : (R : MType), 
-		Value_Function : Z -> (V : MType), 
-		Value_Count : Z, Step : (R * V) -> R) : R;
+	Definition Iterative_Apply(Step : ((R : MType) * (V : MType)) -> R,
+		Start : R, Value_Function : Z -> V, Value_Count : Z) : R;
 
-	Definition Concatenate(Value_Function : Z -> (V : MType), Value_Count : Z) : 
-		Str(V);
+	Definition Concatenate(Value_Function : Z -> (T : MType), 
+			Value_Count : Z) : Str(T) = 
+		Iterative_Apply(lambda (s : Str(T), t : T).(s o <t>),
+			Empty_String, Value_Function, Value_Count);
+
+	Definition Shift(Value_Function : Z -> (V : MType), offset : Z) : 
+		Z -> V;
 
 	Theorem Concatenation_Length:
 		For all f : Z -> Entity,

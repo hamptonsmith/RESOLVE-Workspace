@@ -51,6 +51,12 @@ Precis Boolean_Theory;
 
 	Definition (a : B) implies (b : B) : B = not(a) or b;
 
+	---------------------------------------------------------------
+	-- Basic Boolean Theorems                                    --
+	---------------------------------------------------------------
+	Theorem Or_False_Theorem:
+		false or false = false;
+
     (*Math Type B: SSet;
 
     Definition False: B;

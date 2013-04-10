@@ -38,20 +38,32 @@
  *)
 
 Precis Integer_Theory;
-    uses Boolean_Theory, Set_Theory;
+    uses Boolean_Theory, Set_Theory, Monogenerator_Theory;
 
-	(* Note that the type Z is built-in.  No need to introduce it here. *)
+	(* Note that the type Z is built-in.  No need to introduce it here.
+	 * As a demonstration of how we might do so, however, we introduce the
+	 * type ZZ, which is isomorphic to Z. *)
+
+	Categorical Definition introduces
+		ZZ : MType, ZZ0 : ZZ, succ : ZZ -> ZZ
+	related by
+		Is_Monogenerator_For(ZZ, ZZ0, succ);
 
 	Definition N : Powerset(Z);
 
 	Definition 0: N;
 	Definition 1: N;
+	Definition 2: N;
 
 	Definition z : Z;
 
 	Type Theorem N_Subset_of_Z:
 		For all n : N,
 			n : Z;
+
+	Definition TakesZs(zs : (Z * Z * Z)) : B;
+	Definition SomeNs : (N * N * N);
+	Definition AFact : B = TakesZs(SomeNs);
 
     Definition neg: Z -> Z;
 
@@ -99,6 +111,8 @@ Precis Integer_Theory;
 	Theorem Zero_Less_Than_One: 0 < 1;
 	Theorem One_Greater_Than_Zero: 1 > 0;
 
+	Theorem Zero_Not_Equal_To_Two: 2 /= 0;
+
 	---------------------------------------------------------------
 	-- Relation Theorems                                         --
 	---------------------------------------------------------------
@@ -111,6 +125,11 @@ Precis Integer_Theory;
 		For all n, m : N, 
 		For all i : Z,
 			n + m <= i and m /= 0 implies n < i;
+
+	Theorem NN_Not_Zero_Addition_Left_LET:
+		For all n, m : N, 
+		For all i : Z,
+			n + m <= i and n /= 0 implies m < i;
 
 	Theorem Even_More_LT_1:
 		For all i, j, k : Z,
@@ -201,7 +220,7 @@ Precis Integer_Theory;
 			(i < j) = (i <= j - 1);
 
 	Theorem Subtract_One_from_both_LET:
-		For all i, j, k : Z,
+		For all i, j : Z,
 			(i <= j) = ((i - 1) <= (j - 1));
 
 	Theorem Subtract_One_Still_Less:
@@ -214,7 +233,7 @@ Precis Integer_Theory;
 
 	Theorem LET_But_Not_Equal_1:
 		For all i, j : Z,
-			i <= j and j /= i implies i < j;
+			(i <= j and j /= i) = (i < j);
 
 	Theorem Cheap_LEQ_Theorem_1:
 		For all i, j, k : Z,
@@ -240,6 +259,14 @@ Precis Integer_Theory;
 		For all i : Z,
 			i - 0 = i;
 
+	Theorem Zero_Multiplication_Right:
+		For all i : Z,
+			i * 0 = 0;
+
+	Theorem Zero_Multiplication_Left:
+		For all i : Z,
+			0 * i = 0;
+
 	---------------------------------------------------------------
 	-- Arithmetic                                                --
 	---------------------------------------------------------------
@@ -255,5 +282,21 @@ Precis Integer_Theory;
 	Theorem Subtract_Both_Sides_LET:
 		For all i, j : Z,
 			i <= j implies 0 <= j - i;
+
+	Theorem Equality_Move_Subtraction_1:
+		For all i, j, k : Z,
+			(i = j - k) = (i + k = j);
+
+	Theorem Denied_Multiplications:
+		For all i, j, k, h : Z,
+			(i * (j - (k - h))) = (i * (j - k)) + (i * h);
+
+	Theorem Multiplication_Identity_1:
+		For all i : Z,
+			i * 1 = i;
+
+	Theorem Multiplication_Identity_2:
+		For all i : Z,
+			1 * i = i;
 
 end Integer_Theory;

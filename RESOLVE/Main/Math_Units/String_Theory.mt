@@ -48,6 +48,7 @@ Precis String_Theory;
 	--A function that restricts SStr to the type of all strings of some homogenous
 	--type
 	Definition Str : MType -> MType;
+	Definition Empty_String_In(T : MType) : Str(T);
 
 	Type Theorem Empty_String_In_All_Strs:
 		For all T : MType,
@@ -99,7 +100,15 @@ Precis String_Theory;
 	Definition Substring(s : Str(U : MType), startInclusive : Z, length : Z) :
 		Str(U);
 
-	Definition Element_At(i : Z, s : Str(U : MType)) : U;
+	Definition Element_At(i : Z, s : SStr) : Entity;
+
+	Type Theorem Element_At_Extracts_Generic_Type:
+		For all T : MType,
+		For all S : Str(T),
+		For all i : Z,
+			Element_At(i, S) : Str(T);
+
+	Definition Exists_Between(E : Entity, S : SStr, From : Z, To : Z) : B;
 
 	---------------------------------------------------------------
 	-- Empty String Theorems                                     --
@@ -128,6 +137,11 @@ Precis String_Theory;
 			|S o T| <= i implies
 				|S| <= i and
 				|T| <= i;
+
+	Theorem Lenght_Concatenate_Singleton:
+		For all S : SStr,
+		For all e : Entity,
+			|S o <e>| = |S| + 1;
 
 	Theorem String_Length_Boundary_Singleton_Left:
 		For all S : SStr,
@@ -160,7 +174,7 @@ Precis String_Theory;
 
 	Theorem Zero_Length_Implies_Empty_String:
 		For all S : SStr,
-			(|S| = 0) implies S = Empty_String;
+			(|S| = 0) = (S = Empty_String);
 
 	Theorem Length_Concatenation:
 		For all U, V : SStr,
@@ -177,6 +191,17 @@ Precis String_Theory;
 		For all e : Entity,
 			(|<e> o S| = |T|) implies
 				(|S| < |T|);
+
+	Theorem Length_Relation_1:
+		For all S, T, U : SStr,
+			|S o T| = |U| and |S| > 0 implies
+				|T| < |U|;
+
+	Theorem Length_Relation_2:
+		For all S, T : SStr,
+		For all e : Entity,
+		For all i, j : Z,
+			|S o T o <e>| = i and i <= j implies |S| < j;
 
 	---------------------------------------------------------------
 	-- Singleton String Theorems                                 --
@@ -242,15 +267,13 @@ Precis String_Theory;
 	-- Universal Relations Theorems                              --
 	---------------------------------------------------------------
 	Theorem Empty_String_Universally_Related_1:
-		For all T : MType,
-		For all S : Str(T),
-		For all f : (T * T) -> B,
+		For all S : SStr,
+		For all f : (Entity * Entity) -> B,
 			Is_Universally_Related(Empty_String, S, f);
 
 	Theorem Empty_String_Universally_Related_2:
-		For all T : MType,
-		For all S : Str(T),
-		For all f : (T * T) -> B,
+		For all S : SStr,
+		For all f : (Entity * Entity) -> B,
 			Is_Universally_Related(S, Empty_String, f);
 
 	Theorem Universally_Related_Distributes_1:
@@ -263,9 +286,23 @@ Precis String_Theory;
 	Theorem Universally_Related_Distributes_2:
 		For all f : (Entity * Entity) -> B,
 		For all S, T, U : SStr,
+			Is_Universally_Related(S, T o U, f) implies
+				Is_Universally_Related(S, T, f) and
+				Is_Universally_Related(S, U, f);
+
+	Theorem Universally_Related_Distributes_3:
+		For all f : (Entity * Entity) -> B,
+		For all S, T, U : SStr,
 			Is_Universally_Related(S, U, f) and
 			Is_Universally_Related(T, U, f) implies
 				Is_Universally_Related(S o T, U, f);
+
+	Theorem Universally_Related_Distributes_4:
+		For all f : (Entity * Entity) -> B,
+		For all S, T, U : SStr,
+			Is_Universally_Related(S, T, f) and
+			Is_Universally_Related(S, U, f) implies
+				Is_Universally_Related(S, T o U, f);
 
 	Theorem Permutation_Maintains_Universal_Relation_1:
 		For all f : (Entity * Entity) -> B,
@@ -288,4 +325,23 @@ Precis String_Theory;
 			f(e1, e2) and Is_Universally_Related(<e2>, S, f) implies
 				Is_Universally_Related(<e1>, S, f);
 
+	Theorem Universally_Related_Singletons:
+		For all e1, e2 : Entity,
+		For all f : (Entity * Entity) -> B,
+			f(e1, e2) = Is_Universally_Related(<e1>, <e2>, f);
+
+	---------------------------------------------------------------
+	-- Exists_Between Theorems                                   --
+	---------------------------------------------------------------
+	Theorem Exists_Between_No_Window_1:
+		For all e : Entity,
+		For all S : SStr,
+		For all i : Z,
+			Exists_Between(e, S, i, i - 1) = false;
+
+	Theorem Exists_Between_No_Window_1:
+		For all e : Entity,
+		For all S : SStr,
+		For all i : Z,
+			Exists_Between(e, S, i + 1, i) = false;
 end;

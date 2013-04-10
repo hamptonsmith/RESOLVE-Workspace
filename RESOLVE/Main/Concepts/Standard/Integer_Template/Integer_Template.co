@@ -41,8 +41,8 @@
 Concept Integer_Template;
 	uses Integer_Theory, Std_Boolean_Fac;
 
-    Definition min_int: Z;
-    Definition max_int: Z;
+    Defines min_int: Z;
+    Defines max_int: Z;
 
     Constraint min_int <= 0 and 0 < max_int;
 
@@ -98,9 +98,7 @@ Concept Integer_Template;
         ensures Power = ( i**j );
 
     Operation Divide(evaluates i, j: Integer; replaces q: Integer);
-	requires if (j <= 0)
-		then (j*(max_int + 1) < i and i < j*(min_int -1))
-		else true;
+	requires j /= 0 and min_int <= i / j <= max_int;
         ensures (|j*q| <= |i|) and (|i - j*q| < |j|);
 
     Operation Mod(evaluates i, j: Integer): Integer;
@@ -137,6 +135,13 @@ Concept Integer_Template;
         ensures Min_Int = min_int;
 
     Operation Clear(clears i: Integer);
+
+	Operation One() : Integer;
+		ensures One = 1;
+
+	Operation Two() : Integer;
+		requires max_int >= 2;
+		ensures Two = 2;
 
 -- 	Integer generator operations are included in this concept implicitly.
 -- 	The following function assignment statement, for example, 
