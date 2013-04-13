@@ -131,12 +131,19 @@ Precis String_Theory;
 		For all S, T : SStr,
 			S = T implies |S| = |T|;
 
-	Theorem String_Length_Boundary:
+	Theorem String_Length_Boundary_1:
 		For all S, T : SStr,
 		For all i : Z,
 			|S o T| <= i implies
 				|S| <= i and
 				|T| <= i;
+
+	Theorem String_Length_Boundary_2:
+		For all S, T : SStr,
+		For all i : Z,
+			|S o T| < i implies
+				|S| < i and
+				|T| < i;
 
 	Theorem Lenght_Concatenate_Singleton:
 		For all S : SStr,
@@ -198,10 +205,10 @@ Precis String_Theory;
 				|T| < |U|;
 
 	Theorem Length_Relation_2:
-		For all S, T : SStr,
+		For all S : SStr,
 		For all e : Entity,
 		For all i, j : Z,
-			|S o T o <e>| = i and i <= j implies |S| < j;
+			|S o <e>| = i and i <= j implies |S| < j;
 
 	---------------------------------------------------------------
 	-- Singleton String Theorems                                 --
@@ -339,7 +346,7 @@ Precis String_Theory;
 		For all i : Z,
 			Exists_Between(e, S, i, i - 1) = false;
 
-	Theorem Exists_Between_No_Window_1:
+	Theorem Exists_Between_No_Window_2:
 		For all e : Entity,
 		For all S : SStr,
 		For all i : Z,

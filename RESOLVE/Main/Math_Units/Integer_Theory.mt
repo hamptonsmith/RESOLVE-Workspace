@@ -110,6 +110,7 @@ Precis Integer_Theory;
 	---------------------------------------------------------------
 	Theorem Zero_Less_Than_One: 0 < 1;
 	Theorem One_Greater_Than_Zero: 1 > 0;
+	Theorem Two_Greater_Than_Zero: 2 > 0;
 
 	Theorem Zero_Not_Equal_To_Two: 2 /= 0;
 
@@ -149,7 +150,7 @@ Precis Integer_Theory;
 
 	Theorem GET_And_Not_Equal_GT:
 		For all i, j : Z,
-			i >= j and i /= j implies i > j;
+			(i >= j and i /= j) = (i > j);
 
 	Theorem Bound_1_1:
 		For all i, j : Z,
@@ -227,6 +228,10 @@ Precis Integer_Theory;
 		For all i, j : Z,
 			i <= j implies i - 1 <= j;
 
+	Theorem Add_One_Still_More:
+		For all i, j : Z,
+			i <= j implies i <= j + 1;
+
 	Theorem Subtract_Positive_Still_Less:
 		For all i, j, k : Z,
 			i <= j and k >= 0 implies i - k <= j;
@@ -281,11 +286,15 @@ Precis Integer_Theory;
 
 	Theorem Subtract_Both_Sides_LET:
 		For all i, j : Z,
-			i <= j implies 0 <= j - i;
+			(i <= j) = (0 <= j - i);
 
 	Theorem Equality_Move_Subtraction_1:
 		For all i, j, k : Z,
 			(i = j - k) = (i + k = j);
+
+	Theorem LET_Move_Subtraction_1:
+		For all i, j, k : Z,
+			(i <= j + k) = (i - k <= j);
 
 	Theorem Denied_Multiplications:
 		For all i, j, k, h : Z,
@@ -298,5 +307,11 @@ Precis Integer_Theory;
 	Theorem Multiplication_Identity_2:
 		For all i : Z,
 			1 * i = i;
+
+	Theorem EI_Test:
+		For all i, j, k : Z,
+			i <= j / 2 and
+			k >= j implies
+				i <= k / 2;
 
 end Integer_Theory;

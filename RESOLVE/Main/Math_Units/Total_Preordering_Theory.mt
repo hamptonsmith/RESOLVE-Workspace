@@ -32,6 +32,15 @@ Theory Total_Preordering_Theory;
 		For all e1, e2 : Entity,
 			Is_Total_Preordering(f) and
 			f(e1, e2) = not(f(e2, e1));
+
+	---------------------------------------------------------------
+	-- Relation Theorems                                         --
+	---------------------------------------------------------------
+	Theorem Symmetric_Theorem:
+		For all f : (Entity * Entity) -> B,
+		For all e1, e2 : Entity,
+			Is_Total_Preordering(f) and not(f(e1, e2)) implies
+				f(e2, e1);
 end;
 
 
