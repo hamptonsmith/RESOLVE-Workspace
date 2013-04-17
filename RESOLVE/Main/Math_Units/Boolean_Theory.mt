@@ -55,7 +55,7 @@ Precis Boolean_Theory;
 	-- Basic Boolean Theorems                                    --
 	---------------------------------------------------------------
 	Theorem Or_False_Theorem:
-		false or false = false;
+		(false or false) = false;
 
     (*Math Type B: SSet;
 

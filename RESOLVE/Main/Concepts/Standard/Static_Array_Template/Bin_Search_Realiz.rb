@@ -39,7 +39,7 @@ Realization Bin_Search_Realiz(
 				and A = #A;
 			decreasing (high - low);
 		do
-			Divide(Difference(high, low), two, mid);
+			mid := Div(Difference(high, low), two);
 			mid := Sum(low, mid);
 			Swap_Entry(A, midVal, mid);
 			if (Are_Equal(midVal, key)) then

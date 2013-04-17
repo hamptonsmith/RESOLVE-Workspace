@@ -118,6 +118,10 @@ Precis Integer_Theory;
 	-- Relation Theorems                                         --
 	---------------------------------------------------------------
 
+	Theorem Negation_1:
+		For all i, j : Z,
+			not(i <= j) = (i > j);
+
 	Theorem NN_Not_Greater_Than_Zero:
 		For all n : N,
 			not(n > 0) = (n = 0);
@@ -167,6 +171,30 @@ Precis Integer_Theory;
 	Theorem Bound_N_1:
 		For all i, j, k : Z,
 			(i + j <= k) and j >= 0 implies i <= k;
+
+	Theorem Bound_N_2:
+		For all i, j, k : Z,
+			(i <= j) and (0 <= k) implies (i <= j + k);
+
+	Theorem Bound_N_3:
+		For all i, j, k : Z,
+			0 <= k implies i - ((j + k) + 1) < i - j;
+
+	Theorem Thingy:
+		For all i, j : Z,
+			0 <= i implies i + 1 > 0;
+
+	Theorem Div2_Maintains_Parity:
+		For all i : Z,
+			0 <= i implies 0 <= i / 2;
+
+	Theorem Approach_By_Half_1:
+		For all i, j, k : Z,
+			i <= k and j <= k implies i + (j - i) / 2 <= k; 
+
+	Theorem Half_LET_If_Positive:
+		For all i : Z,
+			0 <= i implies i / 2 <= i;
 
 	Theorem Balance:
 		For all i, j, k : Z,
@@ -220,11 +248,19 @@ Precis Integer_Theory;
 		For all i, j : Z,
 			(i < j) = (i <= j - 1);
 
+	Theorem Off_by_One_4:
+		For all i, j : Z,
+			(i - 1 < j) = (i <= j);
+
+	Theorem Off_by_One_5:
+		For all i, j : Z,
+			(i > j) = (i - 1 >= j);
+
 	Theorem Subtract_One_from_both_LET:
 		For all i, j : Z,
 			(i <= j) = ((i - 1) <= (j - 1));
 
-	Theorem Subtract_One_Still_Less:
+	Theorem LET_Subtract_One_Still_Less:
 		For all i, j : Z,
 			i <= j implies i - 1 <= j;
 
@@ -280,9 +316,13 @@ Precis Integer_Theory;
 		For all i, j : Z,
 			i + j - j = i;
 
-	Theorem Minus_Itself:
+	Theorem Minus_Itself_1:
 		For all i : Z,
 			i - i = 0;
+
+	Theorem Minus_Itself_2:
+		For all i, j : Z,
+			i - (i + j) = -j;
 
 	Theorem Subtract_Both_Sides_LET:
 		For all i, j : Z,
@@ -296,9 +336,13 @@ Precis Integer_Theory;
 		For all i, j, k : Z,
 			(i <= j + k) = (i - k <= j);
 
-	Theorem Denied_Multiplications:
-		For all i, j, k, h : Z,
-			(i * (j - (k - h))) = (i * (j - k)) + (i * h);
+	Theorem Distribute_Minus_1:
+		For all i, j, k : Z,
+			(i - (j - k)) = (i - j + k);
+
+	Theorem Distribute_Mult_1:
+		For all i , j : Z,
+			(i * (j + 1)) = (i * j) + i;
 
 	Theorem Multiplication_Identity_1:
 		For all i : Z,
@@ -313,5 +357,17 @@ Precis Integer_Theory;
 			i <= j / 2 and
 			k >= j implies
 				i <= k / 2;
+
+	Theorem Plus_Inverse:
+		For all i : Z,
+			-i + i = 0;
+
+	Theorem Plus_Associative:
+		For all i, j, k : Z,
+			((i + j) + k) = (i + (j + k)); 
+
+	Theorem Cancel_Term_1:
+		For all i, j, k : Z,
+			i + j - k - i = j - k;
 
 end Integer_Theory;

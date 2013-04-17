@@ -351,4 +351,13 @@ Precis String_Theory;
 		For all S : SStr,
 		For all i : Z,
 			Exists_Between(e, S, i + 1, i) = false;
+
+	Theorem Exists_Between_Decomposition:
+		For all e : Entity,
+		For all S : SStr,
+		For all i, j, x, y : Z,
+			x >= y - 1 implies
+				((Exists_Between(e, S, i, x) or
+				Exists_Between(e, S, y, j)) =
+					Exists_Between(e, S, i, j));
 end;

@@ -3,7 +3,7 @@ Enhancement Search_Capability(definition LEQ(x,y: Entry): B)
 		uses Std_Boolean_Fac, Total_Preordering_Theory,
 			Binary_Relation_Properties_Theory, 
 			Binary_Iterator_Theory;
-		requires Is_Total_Preordering(LEQ) and Is_Symmetric(LEQ);
+		requires Is_Total_Preordering(LEQ) and Is_Antisymmetric(LEQ);
 
 	Operation Is_Present(restores key: Entry; 
 			restores A: Static_Array) : Boolean;
