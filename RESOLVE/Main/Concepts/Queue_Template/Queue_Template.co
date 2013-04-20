@@ -17,8 +17,7 @@ Concept Queue_Template(type Entry; evaluates Max_Length: Integer);
 
     Operation Swap_First_Entry(updates E: Entry; updates Q: Queue);
         requires |Q| /= 0;
-        ensures there exists Rem: Str(Entry) such that 
-		#Q = <E> o Rem and Q = <#E> o Rem;
+        ensures E = Element_At(0, #Q) and Q = <#E> o Substring(#Q, 1, |#Q| - 1);
 
     Operation Length(restores Q: Queue): Integer;
      ensures Length = (|Q|);

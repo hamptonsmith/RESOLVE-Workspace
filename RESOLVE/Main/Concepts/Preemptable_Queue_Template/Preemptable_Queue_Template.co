@@ -7,7 +7,7 @@ Concept Preemptable_Queue_Template(type Entry; evaluates Max_Length: Integer);
     constraint |Q| <= Max_Length;
     initialization ensures Q = Empty_String;
  
-    Operation Enqueue(alters E: Entry; reassigns Q: P_Queue);
+    Operation Enqueue(alters E: Entry; updates Q: P_Queue);
         requires |Q| < Max_Length;
         ensures Q = #Q o <#E>;
  
@@ -21,10 +21,8 @@ Concept Preemptable_Queue_Template(type Entry; evaluates Max_Length: Integer);
 
     Operation Swap_Last_Entry(updates E: Entry; updates Q: P_Queue);
         requires |Q| /= 0;
-        ensures Q = Prt_Btwn(0, |#Q| - 1, #Q) o <#E> and
-                E = DeString(Prt_Btwn(|#Q| - 1, |#Q|, #Q)); 
-		
-		
+        ensures Q = Substring(#Q, 1, |#Q| - 1) o <#E> and
+                E = Element_At(|#Q|, #Q); 
 
     Operation Length(restores Q: P_Queue): Integer;
         ensures Length = (|Q|);

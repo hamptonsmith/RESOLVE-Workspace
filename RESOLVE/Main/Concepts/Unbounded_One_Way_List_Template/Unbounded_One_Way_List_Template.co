@@ -1,20 +1,16 @@
-Concept One_Way_List_Template(type Element;
+Concept Unbounded_One_Way_List_Template(type Entry, 
 		evaluates Max_Length : Integer);
 		uses String_Theory;
-		requires Max_Length >= 0;
-		
 
 	Family One_Way_List is modeled by Cart_Prod
-		Prec, Rem: Str(Element);
+		Prec, Rem: Str(Entry);
 	end;
 	exemplar P;
-	constraint
-		|P.Prec o P.Rem| <= Max_Length;
 	initialization
 		ensures P.Prec = Empty_String and P.Rem = Empty_String;
 
 	Operation Advance(updates P : One_Way_List);
-		requires P.Rem /= Empty_String;
+		requires P.Rem /= Empty_string;
 		ensures P.Prec o P.Rem = #P.Prec o #P.Rem 
 			and |P.Prec| = |#P.Prec| + 1;
 
@@ -27,11 +23,10 @@ Concept One_Way_List_Template(type Element;
 	Operation Length_of_Prec(restores P : One_Way_List) : Integer;
 		ensures Length_of_Prec = |P.Prec|;
 
-	Operation Insert(alters New_Entry : Element; updates P : One_Way_List);
-		requires |P.Prec o P.Rem| < Max_Length;
+	Operation Insert(alters New_Entry : Entry; updates P : One_Way_List);
 		ensures P.Prec = #P.Prec and P.Rem = <#New_Entry> o #P.Rem;
 
-	Operation Remove(replaces Entry_Removed : Element; 
+	Operation Remove(replaces Entry_Removed : Entry; 
 			updates P: One_Way_List);
 		requires P.Rem /= Empty_String;
 		ensures P.Prec = #P.Prec and #P.Rem = <Entry_Removed> o P.Rem;
@@ -39,15 +34,12 @@ Concept One_Way_List_Template(type Element;
 	Operation Advance_to_End(updates P : One_Way_List);
 		ensures P.Prec = #P.Prec o #P.Rem and P.Rem = Empty_String;
 
-	Operation Swap_Prev_Entry_w(updates E : Element; 
+	Operation Swap_Prev_Entry_w(updates E : Entry; 
 			updates P : One_Way_List);
 		ensures P.Rem = #P.Rem and 
-			P.Prec = Substring(#P.Prec, 0, |#P.Prec| - 1) o <E> and
-			E = Element_At(|#P.Prec| - 1, P.Prec);
+			P.Prec = Substring(#P.Prec, |#P.Prec| - 1) o <E> and
+			E = Element_At(P.Prec, |#P.Prec| - 1);
 	
 	Operation Clear_List(clears P: One_Way_List);
 			ensures P.Prec = Empty_String and P.Rem = Empty_String;
-
-	Operation Remaining_Capacity(restores P : One_Way_List) : Integer;
-		ensures Remaining_Capacity = Max_Length - |P.Prec| - |P.Rem|;
 end;
