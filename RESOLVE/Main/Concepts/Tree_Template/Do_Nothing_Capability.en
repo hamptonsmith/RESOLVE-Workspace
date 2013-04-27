@@ -1,0 +1,6 @@
+Enhancement Do_Nothing_Capability for Tree_Template;
+
+	Operation Do_Nothing(restores T : Tree);
+		requires |Split(T)| < Max_Children;
+
+end;

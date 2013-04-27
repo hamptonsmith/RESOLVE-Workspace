@@ -111,6 +111,15 @@ Precis String_Theory;
 	Definition Exists_Between(E : Entity, S : SStr, From : Z, To : Z) : B;
 
 	---------------------------------------------------------------
+	-- String Equality Theorems                                  --
+	---------------------------------------------------------------
+	Theorem Structure_Equality:
+		For all S, T : SStr,
+		For all E, F : Entity,
+			(S o <E> = T o <F>) implies ((S = T) and (E = F));
+
+
+	---------------------------------------------------------------
 	-- Empty String Theorems                                     --
 	---------------------------------------------------------------
 	Theorem Reverse_Empty_String:
@@ -168,6 +177,11 @@ Precis String_Theory;
 	Theorem Reverse_Irrelevant_In_Length:
 		For all S : SStr,
 			|Reverse(S)| = |S|;
+
+	Theorem Concatenate_Singleton_Greater_Than_Zero_Length:
+		For all S : SStr,
+		For all E : Entity,
+			|(S o <E>)| > 0;
 
 	Theorem Concatenate_Singleton_Increases_Length_Left:
 		For all S : SStr,

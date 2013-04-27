@@ -1,0 +1,19 @@
+Concept Tree_Template(type Entry; evaluates Max_Children : Integer);
+		uses Tree_Theory;
+
+	Family Tree is modeled by Tree(Entry);
+		exemplar T;
+		constraint
+			|Split(T)| <= Max_Children;
+		initialization 
+			ensures Entry.Is_Initial(Get_Root(T));
+
+	Operation Add_Child(alters C : Tree; updates T : Tree);
+		requires |Split(T)| < Max_Children;
+		ensures Get_Root(T) = Get_Root(#T) and Split(T) = Split(#T) o <C>;
+
+	Operation Remove_Rightmost_Child(replaces C : Tree; updates T : Tree);
+		requires |Split(T)| > 0;
+		ensures Get_Root(T) = Get_Root(#T) and Split(#T) = Split(T) o <C>;
+
+end;
