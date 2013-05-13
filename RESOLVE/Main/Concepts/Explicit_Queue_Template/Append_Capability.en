@@ -1,0 +1,6 @@
+Enhancement Append_Capability for Explicit_Queue_Template;
+    Operation Append(updates P: Queue; clears Q: Queue);
+        requires |P| + |Q| <= Max_Length;
+        ensures P = #P o #Q;
+end Append_Capability;
+

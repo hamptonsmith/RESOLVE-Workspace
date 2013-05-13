@@ -97,8 +97,8 @@ Precis String_Theory;
 	Definition Is_Universally_Related(s : SStr, t : SStr, 
 		f : (Entity * Entity) -> B) : B;
 
-	Definition Substring(s : Str(U : MType), startInclusive : Z, length : Z) :
-		Str(U);
+	Definition Substring(s : SStr, startInclusive : Z, length : Z) :
+		SStr;
 
 	Definition Element_At(i : Z, s : SStr) : Entity;
 
@@ -136,6 +136,10 @@ Precis String_Theory;
 	---------------------------------------------------------------
 	-- String Length Theorems                                    --
 	---------------------------------------------------------------
+	Theorem Stringleton_Lenght_One:
+		For all e : Entity,
+			|<e>| = 1;
+
 	Theorem Same_String_Same_Length:
 		For all S, T : SStr,
 			S = T implies |S| = |T|;
@@ -223,6 +227,14 @@ Precis String_Theory;
 		For all e : Entity,
 		For all i, j : Z,
 			|S o <e>| = i and i <= j implies |S| < j;
+
+	Theorem Concat_Length_Not_Zero_Left:
+		For all U, V, W : SStr,
+			U o V = W and |U| /= 0 implies |V| < |W|;
+
+	Theorem Concat_Length_Not_Zero_Right:
+		For all U, V, W : SStr,
+			U o V = W and |V| /= 0 implies |U| < |W|;
 
 	---------------------------------------------------------------
 	-- Singleton String Theorems                                 --
@@ -374,4 +386,16 @@ Precis String_Theory;
 				((Exists_Between(e, S, i, x) or
 				Exists_Between(e, S, y, j)) =
 					Exists_Between(e, S, i, j));
+
+	---------------------------------------------------------------
+	-- Substring Theorems                                        --
+	---------------------------------------------------------------
+	Theorem Substring_Length:
+		For all S : SStr,
+		For all n : N,
+			|Substring(S, n, |S| - n)| = |S| - n;
+
+	Theorem Structure_1:
+		For all S : SStr,
+			<Element_At(0, S)> o Substring(S, 1, (|S| - 1)) = S;
 end;

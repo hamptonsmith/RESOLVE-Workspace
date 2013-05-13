@@ -9,6 +9,16 @@ Precis Binary_Iterator_Theory;
 		Iterative_Apply(lambda (s : Str(T), t : T).(s o <t>),
 			Empty_String, Value_Function, Value_Count);
 
+	(*Definition Concatenate(Value_Function : Z -> (T : MType), 
+			Value_Count : Z) : Str(T) = 
+		Iterative_Apply(lambda (s : Str(T), t : T).(s o <t>),
+			Empty_String, lambda(i : Z).(0), Value_Count);*)
+
+	(*Definition Concatenate(Value_Function : Z -> (T : MType), 
+			Value_Count : Z) : Str(T) = 
+		Iterative_Apply(lambda (s : Str(T), t : T).(s o <0>),
+			Empty_String, Value_Function, Value_Count);*)
+
 	Definition Shift(Value_Function : Z -> (V : MType), offset : Z) : 
 		Z -> V;
 

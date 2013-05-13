@@ -1,4 +1,4 @@
-Concept Queue_Template(type Entry; evaluates Max_Length: Integer);
+Concept Explicit_Queue_Template(type Entry; evaluates Max_Length: Integer);
     uses String_Theory;
     requires Max_Length > 0;
  
@@ -13,7 +13,7 @@ Concept Queue_Template(type Entry; evaluates Max_Length: Integer);
  
     Operation Dequeue(replaces R: Entry; updates Q: Queue);
         requires |Q| /= 0;
-        ensures #Q = <R> o Q;
+        ensures R = Element_At(0, #Q) and Q = Substring(#Q, 1, |#Q| - 1);
 
     Operation Swap_First_Entry(updates E: Entry; updates Q: Queue);
         requires |Q| /= 0;

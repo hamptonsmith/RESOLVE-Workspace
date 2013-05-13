@@ -40,7 +40,7 @@
 Precis Set_Theory;
     uses Boolean_Theory;
 
-	Definition Set : (MType -> Powerset(SSet));
+	Definition Set : (MType -> MType);
 
 	Type Theorem Restricted_Set_Subtype_of_Big_Set:
 		For all T : MType,

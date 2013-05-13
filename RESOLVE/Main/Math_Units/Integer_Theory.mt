@@ -113,10 +113,14 @@ Precis Integer_Theory;
 	Theorem Two_Greater_Than_Zero: 2 > 0;
 
 	Theorem Zero_Not_Equal_To_Two: 2 /= 0;
+	Theorem Zero_Not_Equal_To_One: 1 /= 0;
 
 	---------------------------------------------------------------
 	-- Relation Theorems                                         --
 	---------------------------------------------------------------
+	Theorem Off_by_one_less:
+		For all i : Z,
+			i < 1 + i;
 
 	Theorem Negation_1:
 		For all i, j : Z,
@@ -135,6 +139,16 @@ Precis Integer_Theory;
 		For all n, m : N, 
 		For all i : Z,
 			n + m <= i and n /= 0 implies m < i;
+
+	Theorem NN_Not_Zero_Addition_Left_EQ:
+		For all n, m : N,
+		For all i : Z,
+			n + m = i and n /= 0 implies m < i;
+
+	Theorem NN_Not_Zero_Addition_Right_EQ:
+		For all n, m : N,
+		For all i : Z,
+			n + m = i and m /= 0 implies n < i;
 
 	Theorem Even_More_LT_1:
 		For all i, j, k : Z,
